@@ -4,10 +4,37 @@
  */
 package edu.udistrital.taller1.modelo;
 
+import java.util.List;
+
 /**
  *
  * @author sebas
  */
 public class Juego {
-    
+    private int tiempo;
+    private List<Equipo> equipos;
+
+    public Juego() {
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
+    }
+
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    @Override
+    public String toString() {
+        return "Juego{" + "tiempo=" + tiempo + ", equipos=" + equipos + '}';
+    } 
 }
