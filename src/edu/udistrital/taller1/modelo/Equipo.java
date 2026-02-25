@@ -5,7 +5,6 @@
 package edu.udistrital.taller1.modelo;
 
 import java.util.List;
-import edu.udistrital.taller1.modelo.Jugador;
 
 /**
  *
