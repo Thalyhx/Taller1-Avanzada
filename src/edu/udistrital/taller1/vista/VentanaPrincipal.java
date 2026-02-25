@@ -8,6 +8,6 @@ package edu.udistrital.taller1.vista;
  *
  * @author sebas
  */
-public class Ventana {
+public class VentanaPrincipal {
     
 }
