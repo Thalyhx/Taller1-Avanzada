@@ -13,6 +13,10 @@ import edu.udistrital.taller1.vista.VentanaPrincipal;
 public class ControlVentana {
     
     private VentanaPrincipal ventana;
+
+    public ControlVentana() {
+    }
+    
     
     public ControlVentana(VentanaPrincipal ventana) {
         
