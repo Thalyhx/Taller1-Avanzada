@@ -8,6 +8,6 @@ package edu.udistrital.taller1.modelo;
  *
  * @author sebas
  */
-public class Intento {
+public class ArchivoAleatorio {
     
 }

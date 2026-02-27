@@ -4,10 +4,12 @@
  */
 package edu.udistrital.taller1.vista;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author sebas
  */
-public class VentanaPrincipal {
+public class VentanaPrincipal extends JFrame{
     
 }
