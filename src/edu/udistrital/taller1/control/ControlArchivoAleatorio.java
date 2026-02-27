@@ -8,11 +8,6 @@ package edu.udistrital.taller1.control;
  *
  * @author sebas
  */
-public class Launcher {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new ControlPrincipal();
-    }
+public class ControlArchivoAleatorio {
+    
 }
