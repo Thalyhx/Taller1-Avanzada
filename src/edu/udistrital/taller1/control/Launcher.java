@@ -22,6 +22,9 @@ public class Launcher {
             ControlVentana controlador = new ControlVentana(ventana);
             ventana.setVisible(true);
         });
+
+        new ControlPrincipal();
+
     }
 }
     

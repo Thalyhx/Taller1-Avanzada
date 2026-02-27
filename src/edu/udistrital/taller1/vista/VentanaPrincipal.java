@@ -8,9 +8,7 @@ package edu.udistrital.taller1.vista;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- *
- * @author Nath */
+
 public class VentanaPrincipal extends JFrame{
     
     private JLabel lblTitulo;
