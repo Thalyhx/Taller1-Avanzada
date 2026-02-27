@@ -2,14 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edu.udistrital.taller1.modelo;
+package edu.udistrital.taller1.control;
 
 /**
  *
  * @author sebas
  */
-
-public enum TipoEmbocada {
-    SIMPLE, DOBLE, VERTICAL,MARIQUITA, PUÑALADA, PURTIÑA, DOMINIO_REVES
+public class ControlDesSerializado {
+    
 }
-

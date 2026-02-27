@@ -4,15 +4,25 @@
  */
 package edu.udistrital.taller1.control;
 
+import edu.udistrital.taller1.vista.VentanaPrincipal;
+
 /**
  *
- * @author sebas
+ * @author Nath
  */
 public class Launcher {
     /**
-     * @param args the command line arguments
+     * @param args 
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        
+         javax.swing.SwingUtilities.invokeLater(() -> {
+            VentanaPrincipal ventana    = new VentanaPrincipal();
+            ControlVentana controlador = new ControlVentana(ventana);
+            ventana.setVisible(true);
+        });
     }
 }
+    
+

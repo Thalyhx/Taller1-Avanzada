@@ -8,8 +8,6 @@ package edu.udistrital.taller1.modelo;
  *
  * @author sebas
  */
-
-public enum TipoEmbocada {
-    SIMPLE, DOBLE, VERTICAL,MARIQUITA, PUÑALADA, PURTIÑA, DOMINIO_REVES
+public class Serializado {
+    
 }
-

@@ -4,10 +4,18 @@
  */
 package edu.udistrital.taller1.control;
 
+import edu.udistrital.taller1.vista.VentanaPrincipal;
+
 /**
  *
  * @author sebas
  */
 public class ControlVentana {
     
+    private VentanaPrincipal ventana;
+    
+    public ControlVentana(VentanaPrincipal ventana) {
+        this.ventana = ventana;
+        
+    }
 }
