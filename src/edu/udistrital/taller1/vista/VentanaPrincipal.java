@@ -29,6 +29,8 @@ public class VentanaPrincipal extends JFrame{
         establecerLayout();
         agregarComponentes();
         aplicarEstilos();
+        
+        lblImagen.setIcon(cargarImagen("recursos/imagenes/balero.png", 200, 200));
     }
     
     private void inicializarComponentes() {
@@ -103,16 +105,24 @@ public class VentanaPrincipal extends JFrame{
      * @return ImageIcon redimensionado
      */
     private ImageIcon cargarImagen(String ruta, int ancho, int alto) {
-        try {
-            ImageIcon icon = new ImageIcon(ruta);
-            Image imagen = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-            return new ImageIcon(imagen);
-        } catch (Exception e) {
-            System.err.println("Error al cargar la imagen: " + e.getMessage());
-            // por si no encuentra la imagen
+    try {
+        // Carga la imagen
+        java.net.URL imagenURL = getClass().getClassLoader().getResource(ruta);
+        
+        if (imagenURL == null) {
+            System.err.println("No se encontró: " + ruta);
             return null;
         }
+        
+        ImageIcon icon = new ImageIcon(imagenURL);
+        Image imagen = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        return new ImageIcon(imagen);
+    } catch (Exception e) {
+        System.err.println("Error al cargar la imagen: " + e.getMessage());
+        e.printStackTrace();
+        return null;
     }
+}
     
     
     //Getters
