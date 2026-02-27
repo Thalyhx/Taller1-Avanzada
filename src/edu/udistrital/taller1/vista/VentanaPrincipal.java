@@ -14,6 +14,7 @@ public class VentanaPrincipal extends JFrame{
     private JLabel lblTitulo;
     private JLabel lblImagen;
     private JButton btnPrecargarEquipos;
+    private JButton btnSalir;
     
     public VentanaPrincipal() {
         
@@ -27,6 +28,8 @@ public class VentanaPrincipal extends JFrame{
         establecerLayout();
         agregarComponentes();
         aplicarEstilos();
+        
+        lblImagen.setIcon(cargarImagen("recursos/imagenes/balero.png", 200, 200));
     }
     
     private void inicializarComponentes() {
@@ -40,7 +43,7 @@ public class VentanaPrincipal extends JFrame{
         lblImagen.setIcon(cargarImagen("recursos/imagenes/balero.png", 200, 200));
         lblImagen.setHorizontalAlignment(JLabel.CENTER);
         
-        // Botón
+        // Botón Precargar
         btnPrecargarEquipos = new JButton("PRECARGAR EQUIPOS");
         btnPrecargarEquipos.setFont(new Font("Arial", Font.BOLD, 16));
         btnPrecargarEquipos.setForeground(Color.WHITE);
@@ -49,6 +52,16 @@ public class VentanaPrincipal extends JFrame{
         btnPrecargarEquipos.setBorderPainted(false);
         btnPrecargarEquipos.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnPrecargarEquipos.setPreferredSize(new Dimension(250, 50));
+        
+        // Botón Salir
+        btnSalir = new JButton("SALIR");
+        btnSalir.setFont(new Font("Arial", Font.BOLD, 16));
+        btnSalir.setForeground(Color.WHITE);
+        btnSalir.setBackground(new Color(200, 0, 0)); // Rojo oscuro
+        btnSalir.setOpaque(true);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnSalir.setPreferredSize(new Dimension(200, 50));
     }
     
     private void establecerLayout() {
@@ -72,10 +85,17 @@ public class VentanaPrincipal extends JFrame{
         gbc.insets = new Insets(40, 20, 40, 20);
         add(lblImagen, gbc);
         
-        //  botón
+        
+        //Botones
+        
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        panelBotones.setBackground(new Color(240, 240, 240));
+        panelBotones.add(btnPrecargarEquipos);
+        panelBotones.add(btnSalir);
+        
         gbc.gridy = 2;
         gbc.insets = new Insets(20, 20, 20, 20);
-        add(btnPrecargarEquipos, gbc);
+        add(panelBotones, gbc);
     }
     
     private void aplicarEstilos() {
@@ -91,6 +111,20 @@ public class VentanaPrincipal extends JFrame{
                 btnPrecargarEquipos.setBackground(Color.BLACK);
             }
         });
+        
+        
+        //Efectos de los botones
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalir.setBackground(new Color(150, 0, 0));
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalir.setBackground(new Color(200, 0, 0));
+            }
+        });
     }
     
     /**
@@ -101,22 +135,34 @@ public class VentanaPrincipal extends JFrame{
      * @return ImageIcon redimensionado
      */
     private ImageIcon cargarImagen(String ruta, int ancho, int alto) {
-        try {
-            ImageIcon icon = new ImageIcon(ruta);
-            Image imagen = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-            return new ImageIcon(imagen);
-        } catch (Exception e) {
-            System.err.println("Error al cargar la imagen: " + e.getMessage());
-            // por si no encuentra la imagen
+    try {
+        // Carga la imagen
+        java.net.URL imagenURL = getClass().getClassLoader().getResource(ruta);
+        
+        if (imagenURL == null) {
+            System.err.println("No se encontró: " + ruta);
             return null;
         }
+        
+        ImageIcon icon = new ImageIcon(imagenURL);
+        Image imagen = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        return new ImageIcon(imagen);
+    } catch (Exception e) {
+        System.err.println("Error al cargar la imagen: " + e.getMessage());
+        e.printStackTrace();
+        return null;
     }
+}
     
     
     //Getters
     
     public JButton getBtnPrecargarEquipos() {
         return btnPrecargarEquipos;
+    }
+    
+    public JButton getBtnSalir() {
+        return btnSalir;
     }
     
     public JLabel getLblImagen() {

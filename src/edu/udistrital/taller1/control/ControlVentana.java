@@ -15,7 +15,12 @@ public class ControlVentana {
     private VentanaPrincipal ventana;
     
     public ControlVentana(VentanaPrincipal ventana) {
-        this.ventana = ventana;
         
+        this.ventana = ventana;
+        ventana.getBtnSalir().addActionListener(e -> salirDelJuego());
     }
+    
+    private void salirDelJuego() {
+    System.exit(0);
+}
 }
