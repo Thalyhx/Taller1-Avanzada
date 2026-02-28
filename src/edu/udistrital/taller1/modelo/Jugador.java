@@ -17,6 +17,11 @@ public class Jugador {
     public Jugador() {
     }
 
+    public Jugador(int codigoJugador, String nombreJugador) {
+        this.codigoJugador = codigoJugador;
+        this.nombreJugador = nombreJugador;
+    }
+    
     public int getCodigoJugador() {
         return codigoJugador;
     }

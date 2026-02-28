@@ -2,16 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edu.udistrital.taller1.control;
+package edu.udistrital.taller1.modelo;
 
 /**
  *
  * @author sebas
  */
-public class ControlArchivoAleatorio {
-    private ControlPrincipal cPrincipal;
+public class Serializacion {
     
-    public ControlArchivoAleatorio(ControlPrincipal cPrincipal){
-        this.cPrincipal = cPrincipal;
-    }
 }
