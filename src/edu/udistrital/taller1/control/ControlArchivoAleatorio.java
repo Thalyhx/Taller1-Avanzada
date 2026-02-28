@@ -9,5 +9,9 @@ package edu.udistrital.taller1.control;
  * @author sebas
  */
 public class ControlArchivoAleatorio {
+    private ControlPrincipal cPrincipal;
     
+    public ControlArchivoAleatorio(ControlPrincipal cPrincipal){
+        this.cPrincipal = cPrincipal;
+    }
 }

@@ -9,5 +9,10 @@ package edu.udistrital.taller1.control;
  * @author sebas
  */
 public class ControlJuego {
+    private ControlPrincipal cPrincipal;
+
+    public ControlJuego(ControlPrincipal cPrincipal) {
+        this.cPrincipal = cPrincipal;
+    }
     
 }
