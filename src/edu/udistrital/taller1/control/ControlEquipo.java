@@ -9,5 +9,11 @@ package edu.udistrital.taller1.control;
  * @author sebas
  */
 public class ControlEquipo {
+    private ControlPrincipal cPrincipal;
+
+    public ControlEquipo(ControlPrincipal cPrincipal) {
+        this.cPrincipal = cPrincipal;
+    }
+    
     
 }
