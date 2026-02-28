@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Equipo {
     private int codigoEquipo;
+    private String proyectoCurricularEquipo;
     private String nombreEquipo;
     private List<Jugador> jugadoresEquipo;
     private int puntajeEquipo;
@@ -19,6 +20,12 @@ public class Equipo {
 
     public Equipo() {
     }
+
+    public Equipo(String proyectoCurricularEquipo, String nombreEquipo) {
+        this.proyectoCurricularEquipo = proyectoCurricularEquipo;
+        this.nombreEquipo = nombreEquipo;
+    }
+    
 
     public int getCodigoEquipo() {
         return codigoEquipo;
