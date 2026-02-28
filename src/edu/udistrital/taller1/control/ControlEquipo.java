@@ -13,13 +13,5 @@ public class ControlEquipo {
 
     public ControlEquipo(ControlPrincipal cPrincipal) {
         this.cPrincipal = cPrincipal;
-    }
-    
-    
-    private ControlPrincipal cPrincipal;
-
-    public ControlEquipo(ControlPrincipal cPrincipal) {
-        this.cPrincipal = cPrincipal;
-    }
-          
+    }     
 }
