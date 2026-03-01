@@ -9,6 +9,7 @@ import edu.udistrital.taller1.modelo.Jugador;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class PanelJugador extends JPanel {
 
@@ -22,13 +23,21 @@ public class PanelJugador extends JPanel {
 
     private boolean enTurno = false;
 
+    // NUEVO: iconos estándar (inactivo/activo) tipo personaje
+    private final Icon iconoInactivo;
+    private final Icon iconoActivo;
+
     public PanelJugador(Jugador jugador, Icon icono) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(true);
         setBackground(colorNormal);
         setBorder(new EmptyBorder(8, 8, 8, 8));
 
-        lblIcono = new JLabel(icono);
+        // ignoramos el 'icono' que llega y usamos iconos estándar dibujados
+        iconoInactivo = crearIconoPersonaje(false, 64);
+        iconoActivo = crearIconoPersonaje(true, 64);
+
+        lblIcono = new JLabel(iconoInactivo);
         lblIcono.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         lblNombre = new JLabel(jugador.getNombreJugador());
@@ -50,10 +59,16 @@ public class PanelJugador extends JPanel {
 
     public void actualizarPuntos(int puntos) {
         lblPuntos.setText("Puntuación: " + puntos);
+        revalidate();
+        repaint();
     }
 
     public void setEnTurno(boolean value) {
         this.enTurno = value;
+
+        // CAMBIO: icono cambia según turno (como tu mockup)
+        lblIcono.setIcon(enTurno ? iconoActivo : iconoInactivo);
+
         if (enTurno) {
             setBackground(colorTurno);
             lblNombre.setForeground(colorTextoTurno);
@@ -64,5 +79,70 @@ public class PanelJugador extends JPanel {
             lblPuntos.setForeground(Color.BLACK);
         }
         repaint();
+    }
+
+    /**
+     * Crea un icono tipo personaje estándar:
+     * - activo: fondo negro, silueta blanca
+     * - inactivo: contorno negro sobre fondo transparente/blanco
+     */
+    private static Icon crearIconoPersonaje(boolean activo, int size) {
+        BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        try {
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            int stroke = Math.max(3, size / 16);
+            int pad = stroke;
+            int d = size - pad * 2;
+
+            if (activo) {
+                // círculo negro de fondo
+                g.setColor(Color.BLACK);
+                g.fillOval(pad, pad, d, d);
+
+                // cabeza blanca
+                int headD = (int) (d * 0.35);
+                int headX = pad + (d - headD) / 2;
+                int headY = pad + (int) (d * 0.18);
+                g.setColor(Color.WHITE);
+                g.fillOval(headX, headY, headD, headD);
+
+                // cuerpo blanco (hombros)
+                int bodyW = (int) (d * 0.58);
+                int bodyH = (int) (d * 0.32);
+                int bodyX = pad + (d - bodyW) / 2;
+                int bodyY = pad + (int) (d * 0.55);
+                g.fillRoundRect(bodyX, bodyY, bodyW, bodyH, bodyH, bodyH);
+
+                // recorte inferior para que parezca semicírculo (simple)
+                g.setColor(Color.BLACK);
+                g.fillRect(pad, pad + (int) (d * 0.78), d, pad + d);
+
+            } else {
+                // contorno
+                g.setColor(Color.BLACK);
+                g.setStroke(new BasicStroke(stroke));
+
+                // círculo contorno
+                g.drawOval(pad, pad, d, d);
+
+                // cabeza contorno
+                int headD = (int) (d * 0.35);
+                int headX = pad + (d - headD) / 2;
+                int headY = pad + (int) (d * 0.18);
+                g.drawOval(headX, headY, headD, headD);
+
+                // hombros contorno (arco)
+                int arcW = (int) (d * 0.70);
+                int arcH = (int) (d * 0.55);
+                int arcX = pad + (d - arcW) / 2;
+                int arcY = pad + (int) (d * 0.40);
+                g.drawArc(arcX, arcY, arcW, arcH, 0, -180);
+            }
+        } finally {
+            g.dispose();
+        }
+        return new ImageIcon(img);
     }
 }

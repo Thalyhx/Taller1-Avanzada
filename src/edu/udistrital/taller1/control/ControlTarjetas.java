@@ -12,9 +12,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
-public final class TarjetasFactory {
+public final class ControlTarjetas {
 
-    private TarjetasFactory() {}
+    private ControlTarjetas() {}
 
     public static JPanel crearTarjetaEquipo(Equipo equipo) {
         JPanel card = new JPanel(new BorderLayout(10, 10));
