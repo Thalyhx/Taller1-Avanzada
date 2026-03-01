@@ -7,6 +7,8 @@ package edu.udistrital.taller1.control;
 import edu.udistrital.taller1.modelo.Jugador;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.swing.JFileChooser;
 
@@ -17,6 +19,7 @@ import javax.swing.JFileChooser;
 public class ControlJugador {
 
     private ControlPrincipal cPrincipal;
+    private List<Jugador> listaJugadores;
     Properties misPropiedades;
     File f;
 
@@ -24,6 +27,7 @@ public class ControlJugador {
         this.cPrincipal = cPrincipal;
         misPropiedades = new Properties();
         misPropiedades = cargar();
+        listaJugadores = new ArrayList<>();
     }
 
     public void listarArchivo() {
@@ -31,11 +35,12 @@ public class ControlJugador {
     }
 
     public void mostrarDatos() {
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= Integer.parseInt(misPropiedades.getProperty("cantidadEquipos")); i++) {
             for (int j = 1; j  <= 3; j++) {
                 String nombreJugador = misPropiedades.getProperty("equipo" + i + "jugador"+j+"nombre");
-                int codigoJugador = Integer.parseInt(misPropiedades.getProperty("equipo" + i + "jugador"+j+"codigo"));
+                long codigoJugador = Long.parseLong(misPropiedades.getProperty("equipo" + i + "jugador"+j+"codigo"));
                 Jugador jugador = new Jugador(codigoJugador,nombreJugador);
+                listaJugadores.add(jugador);
             }
         }
     }
@@ -53,7 +58,7 @@ public class ControlJugador {
                 return propiedades;
             }
         } catch (Exception e) {
-            System.out.println("No se pudo cargar el archivo properties");
+            throw new RuntimeException("No se pudo cargar el archivo properties");
         }
 
         return null;

@@ -17,5 +17,6 @@ public class ControlPrincipal {
     public ControlPrincipal() {
         cEquipo = new ControlEquipo(this);
         cJuego = new ControlJuego(this);
+        cJugador = new ControlJugador(this);
     }  
 }

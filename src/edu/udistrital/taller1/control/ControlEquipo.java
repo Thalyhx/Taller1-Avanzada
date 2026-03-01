@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.Properties;
 import edu.udistrital.taller1.modelo.Equipo;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 
 /**
@@ -16,6 +18,7 @@ import javax.swing.JFileChooser;
  */
 public class ControlEquipo {
     private ControlPrincipal cPrincipal;
+    private List<Equipo> listaEquipos;
     Properties misPropiedades;
     File f;
     
@@ -24,6 +27,7 @@ public class ControlEquipo {
         this.cPrincipal = cPrincipal;
         misPropiedades = new Properties();
         misPropiedades = cargar();
+        listaEquipos = new ArrayList<>();
     } 
     
     public void listarArchivo() {
@@ -31,10 +35,11 @@ public class ControlEquipo {
     }
     
     public void mostrarDatos(){
-        for(int i=1; i<=2;i++){
+        for(int i=1; i<=Integer.parseInt(misPropiedades.getProperty("cantidadEquipos"));i++){
           String proyectoCurricularEquipo =  misPropiedades.getProperty("equipo"+i+"proyecto");
           String nombreEquipo =  misPropiedades.getProperty("equipo"+i+"nombre");
           Equipo equipo = new Equipo(proyectoCurricularEquipo, nombreEquipo);
+          listaEquipos.add(equipo);
         }
     }
 
@@ -51,7 +56,7 @@ public class ControlEquipo {
                 return propiedades;
             }
         } catch (Exception e) {
-            System.out.println("No se pudo cargar el archivo properties");
+            throw new RuntimeException("No se pudo cargar el archivo properties");
         }
 
        return null;
