@@ -12,11 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 
-/**
- * CORRECCION: Movido método reiniciar() desde Equipo a ControlEquipo
- * Controlador que maneja la carga de equipos
- * @author sebas
- */
+
 public class ControlEquipo {
     private ControlPrincipal cPrincipal;
     private Properties misPropiedades;
@@ -34,7 +30,6 @@ public class ControlEquipo {
         this.misPropiedades = cargar();
         
         if (misPropiedades == null) {
-            System.out.println("No se cargó archivo");
             return new ArrayList<>();
         }
         
@@ -64,10 +59,7 @@ public class ControlEquipo {
         return equipos;
     }
     
-    /**
-     * CORRECCION: Movido desde Equipo
-     * Reinicia todos los equipos para una nueva partida
-     */
+   
     public void reiniciarEquipos(List<Equipo> equipos) {
         if (equipos == null || equipos.isEmpty()) {
             return;
@@ -87,17 +79,17 @@ public class ControlEquipo {
             }
         }
         
-        System.out.println("Equipos reiniciados para nueva partida");
     }
     
     public void listarArchivo() {
         if (misPropiedades != null) {
-            misPropiedades.list(System.out);
         }
     }
     
     public void mostrarDatos(){
-        for(int i=1; i<=2;i++){
+        
+        for (int i = 1; i <= Integer.parseInt(misPropiedades.getProperty("cantidadEquipos")); i++)
+        {
           String proyectoCurricularEquipo =  misPropiedades.getProperty("equipo"+i+".proyecto");
           String nombreEquipo =  misPropiedades.getProperty("equipo"+i+".nombre");
           Equipo equipo = new Equipo(proyectoCurricularEquipo, nombreEquipo);
@@ -120,10 +112,6 @@ public class ControlEquipo {
             propiedades.load(archivo);
             archivo.close();
             
-            if (!propiedades.isEmpty()) {
-                System.out.println("Archivo cargado: " + f.getName());
-                return propiedades;
-            }
         } catch (Exception e) {
             System.err.println("No se pudo cargar el archivo properties: " + e.getMessage());
         }

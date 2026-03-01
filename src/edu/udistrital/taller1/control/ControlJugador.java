@@ -25,7 +25,7 @@ public class ControlJugador {
     public ControlJugador(ControlPrincipal cPrincipal) {
         this.cPrincipal = cPrincipal;
         misPropiedades = new Properties();
-       ///  misPropiedades = cargar();  se carga en el constructor?
+
     }
 
     public void listarArchivo() {
@@ -33,27 +33,12 @@ public class ControlJugador {
             misPropiedades.list(System.out);
         }
     }
-
-//    public void mostrarDatos() {
-//        for (int i = 1; i <= 2; i++) {
-//            for (int j = 1; j  <= 3; j++) {
-//                String nombreJugador = misPropiedades.getProperty("equipo" + i + "jugador"+j+"nombre");
-//                int codigoJugador = Integer.parseInt(misPropiedades.getProperty("equipo" + i + "jugador"+j+"codigo"));
-//                
-//                String codigoStr = misPropiedades.getProperty("equipo" + i + ".jugador" + j + ".codigo");
-//                
-//                if (nombreJugador != null && codigoStr != null) {
-//                    int codigoJugador = Integer.parseInt(codigoStr);
-//                    Jugador jugador = new Jugador(codigoJugador, nombreJugador);
-//                }
-//            }
-//        }
-//    }
     
     private List<Jugador> construirJugadores() {
         List<Jugador> jugadores = new ArrayList<>();
         
-        for (int i = 1; i <= 10; i++) { // Soporta hasta 10 equipos
+        for (int i = 1; i <= Integer.parseInt(misPropiedades.getProperty("cantidadEquipos")); i++)
+        { // Soporta hasta 10 equipos
             for (int j = 1; j <= 3; j++) { // 3 jugadores por equipo
                 String nombreJugador = misPropiedades.getProperty("equipo" + i + ".jugador" + j + ".nombre");
                 String codigoStr = misPropiedades.getProperty("equipo" + i + ".jugador" + j + ".codigo");
@@ -67,7 +52,7 @@ public class ControlJugador {
                     Jugador jugador = new Jugador(codigo, nombreJugador);
                     jugadores.add(jugador);
                 } catch (NumberFormatException e) {
-                    System.err.println("Código inválido: " + codigoStr);
+                        //
                 }
             }
         }
@@ -79,7 +64,6 @@ public class ControlJugador {
         this.misPropiedades = cargar();
         
         if (misPropiedades == null) {
-            System.out.println("No se cargó archivo");
             return new ArrayList<>();
         }
         
@@ -110,7 +94,7 @@ public class ControlJugador {
                 return propiedades;
             }
         } catch (Exception e) {
-            System.out.println("No se pudo cargar el archivo properties");
+            throw new RuntimeException("No se pudo cargar el archivo properties");
         }
 
         return null;

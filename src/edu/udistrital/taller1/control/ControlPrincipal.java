@@ -22,7 +22,7 @@ public class ControlPrincipal {
     private ControlPanelJuego cPanelJuego;
     private List<Equipo> equiposCargados;
 
-    // CORRECCION: Constructor simplificado - solo recibe VentanaPrincipal
+
     public ControlPrincipal(VentanaPrincipal ventanaPrincipal) {
         this.ventana = ventanaPrincipal;
         
@@ -32,7 +32,7 @@ public class ControlPrincipal {
         this.cJuego = new ControlJuego(this);
         this.cPanelJuego = new ControlPanelJuego(this);
         
-        // CORRECCION: Crear ControlVentana al final, después de inicializar otros controladores
+
         this.cVentana = new ControlVentana(ventanaPrincipal, this);
     }
     
