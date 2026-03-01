@@ -17,6 +17,7 @@ public class PanelEquipo extends JPanel {
 
     private final JLabel lblNombreEquipo;
     private final JLabel lblPuntajeEquipo;
+    private final JLabel lblIntentosEquipo; // NUEVO
 
     private final JPanel panelJugadores;
     private final List<PanelJugador> panelesJugadores = new ArrayList<>();
@@ -43,9 +44,15 @@ public class PanelEquipo extends JPanel {
         lblPuntajeEquipo = new JLabel("Puntuación equipo: " + equipo.getPuntajeEquipo());
         lblPuntajeEquipo.setFont(new Font("Arial", Font.PLAIN, 12));
 
+        // NUEVO
+        lblIntentosEquipo = new JLabel("Intentos equipo: " + equipo.getIntentosEquipo());
+        lblIntentosEquipo.setFont(new Font("Arial", Font.PLAIN, 12));
+
         header.add(lblNombreEquipo);
         header.add(Box.createVerticalStrut(4));
         header.add(lblPuntajeEquipo);
+        header.add(Box.createVerticalStrut(2));
+        header.add(lblIntentosEquipo);
 
         add(header, BorderLayout.NORTH);
 
@@ -81,9 +88,21 @@ public class PanelEquipo extends JPanel {
         lblPuntajeEquipo.setText("Puntuación equipo: " + puntos);
     }
 
+    // NUEVO
+    public void actualizarIntentosEquipo(int intentos) {
+        lblIntentosEquipo.setText("Intentos equipo: " + intentos);
+    }
+
     public void actualizarPuntosJugador(int idxJugador, int puntosJugador) {
         if (idxJugador >= 0 && idxJugador < panelesJugadores.size()) {
             panelesJugadores.get(idxJugador).actualizarPuntos(puntosJugador);
+        }
+    }
+
+    // NUEVO
+    public void actualizarIntentosJugador(int idxJugador, int intentosJugador) {
+        if (idxJugador >= 0 && idxJugador < panelesJugadores.size()) {
+            panelesJugadores.get(idxJugador).actualizarIntentos(intentosJugador);
         }
     }
 }

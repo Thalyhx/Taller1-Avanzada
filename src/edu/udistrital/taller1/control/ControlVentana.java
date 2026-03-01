@@ -52,6 +52,7 @@ public class ControlVentana {
 
     private boolean juegoEnCurso;
     private final Random rnd = new Random();
+    private int[] intentosExitososPorEquipo;
 
     // NUEVO: guardar ganador actual para serializar al salir
     private Equipo ganadorActual;
@@ -191,6 +192,8 @@ public class ControlVentana {
 
         this.panelJuego = ventana.getPanelJuego();
         this.equipos = equipos;
+        
+        intentosExitososPorEquipo = new int[equipos.size()];
 
         this.equipoActual = 0;
         this.jugadorActual = 0;
@@ -287,6 +290,9 @@ public class ControlVentana {
 
         jug.setIntentosJugador(jug.getIntentosJugador() + 1);
         eq.setIntentosEquipo(eq.getIntentosEquipo() + 1);
+        
+        uiEquipos.get(equipoActual).actualizarIntentosJugador(jugadorActual, jug.getIntentosJugador());
+        uiEquipos.get(equipoActual).actualizarIntentosEquipo(eq.getIntentosEquipo());
 
         boolean emboca = rnd.nextBoolean();
         int puntos = 0;
@@ -309,6 +315,8 @@ public class ControlVentana {
 
             jug.setPuntosJugador(jug.getPuntosJugador() + puntos);
             eq.setPuntajeEquipo(eq.getPuntajeEquipo() + puntos);
+            
+            intentosExitososPorEquipo[equipoActual]++; // para desempate por fallidos
         }
 
         uiEquipos.get(equipoActual).actualizarPuntosJugador(jugadorActual, jug.getPuntosJugador());
@@ -356,22 +364,39 @@ public class ControlVentana {
     }
 
     private Equipo calcularGanador() {
-        Equipo mejor = null;
-        for (Equipo e : equipos) {
-            if (mejor == null) {
-                mejor = e;
-                continue;
-            }
-            if (e.getPuntajeEquipo() > mejor.getPuntajeEquipo()) {
-                mejor = e;
-            } else if (e.getPuntajeEquipo() == mejor.getPuntajeEquipo()) {
-                if (e.getIntentosEquipo() > mejor.getIntentosEquipo()) {
-                    mejor = e;
-                }
+    int idxMejor = -1;
+
+    for (int i = 0; i < equipos.size(); i++) {
+        Equipo e = equipos.get(i);
+
+        if (idxMejor == -1) {
+            idxMejor = i;
+            continue;
+        }
+
+        Equipo mejor = equipos.get(idxMejor);
+
+        int puntajeE = e.getPuntajeEquipo();
+        int puntajeMejor = mejor.getPuntajeEquipo();
+
+        if (puntajeE > puntajeMejor) {
+            idxMejor = i;
+            continue;
+        }
+
+        if (puntajeE == puntajeMejor) {
+            // fallidos = intentosTotales - intentosExitosos
+            int fallidosE = e.getIntentosEquipo() - intentosExitososPorEquipo[i];
+            int fallidosMejor = mejor.getIntentosEquipo() - intentosExitososPorEquipo[idxMejor];
+
+            if (fallidosE < fallidosMejor) {
+                idxMejor = i;
             }
         }
-        return mejor;
     }
+
+    return equipos.get(idxMejor);
+}
 
     // ===================== RESULTADOS =====================
 
