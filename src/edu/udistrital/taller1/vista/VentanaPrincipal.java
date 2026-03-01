@@ -2,174 +2,76 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edu.udistrital.taller1.vista;
 
+package edu.udistrital.taller1.vista;
 
 import javax.swing.*;
 import java.awt.*;
 
-
-public class VentanaPrincipal extends JFrame{
+/**
+ * Ventana principal que contiene todos los paneles
+ * Usa CardLayout para cambiar entre paneles
+ */
+public class VentanaPrincipal extends JFrame {
     
-    private JLabel lblTitulo;
-    private JLabel lblImagen;
-    private JButton btnPrecargarEquipos;
-    private JButton btnSalir;
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    
+    private PanelInicio panelInicio;
+    private PanelTiempo panelTiempo;
+    private PanelJuego panelJuego;
+    private PanelResultados panelResultados;
     
     public VentanaPrincipal() {
-        
         setTitle("Juego del Balero");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1000, 700);
         setLocationRelativeTo(null);
         setResizable(false);
         
         inicializarComponentes();
-        establecerLayout();
-        agregarComponentes();
-        aplicarEstilos();
-        
-        lblImagen.setIcon(cargarImagen("recursos/imagenes/balero.png", 200, 200));
     }
     
     private void inicializarComponentes() {
-        // Título
-        lblTitulo = new JLabel("Juego del Balero");
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 48));
-        lblTitulo.setHorizontalAlignment(JLabel.CENTER);
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
         
-        // Imagen 
-        lblImagen = new JLabel();
-        lblImagen.setIcon(cargarImagen("recursos/imagenes/balero.png", 200, 200));
-        lblImagen.setHorizontalAlignment(JLabel.CENTER);
+        // Crear paneles
+        panelInicio = new PanelInicio();
+        panelTiempo = new PanelTiempo();
+        panelJuego = new PanelJuego();
+        panelResultados = new PanelResultados();
         
-        // Botón Precargar
-        btnPrecargarEquipos = new JButton("PRECARGAR EQUIPOS");
-        btnPrecargarEquipos.setFont(new Font("Arial", Font.BOLD, 16));
-        btnPrecargarEquipos.setForeground(Color.WHITE);
-        btnPrecargarEquipos.setBackground(Color.BLACK);
-        btnPrecargarEquipos.setOpaque(true);
-        btnPrecargarEquipos.setBorderPainted(false);
-        btnPrecargarEquipos.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnPrecargarEquipos.setPreferredSize(new Dimension(250, 50));
+        // Agregar paneles al CardLayout
+        mainPanel.add(panelInicio, "inicio");
+        mainPanel.add(panelTiempo, "tiempo");
+        mainPanel.add(panelJuego, "juego");
+        mainPanel.add(panelResultados, "resultados");
         
-        // Botón Salir
-        btnSalir = new JButton("SALIR");
-        btnSalir.setFont(new Font("Arial", Font.BOLD, 16));
-        btnSalir.setForeground(Color.WHITE);
-        btnSalir.setBackground(new Color(200, 0, 0)); // Rojo oscuro
-        btnSalir.setOpaque(true);
-        btnSalir.setBorderPainted(false);
-        btnSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnSalir.setPreferredSize(new Dimension(200, 50));
-    }
-    
-    private void establecerLayout() {
-        setLayout(new GridBagLayout());
-        // Fondo 
-        setBackground(new Color(240, 240, 240)); 
-    }
-    
-    private void agregarComponentes() {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(20, 20, 20, 20);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        
-        // título
-        add(lblTitulo, gbc);
-        
-        //  imagen
-        gbc.gridy = 1;
-        gbc.insets = new Insets(40, 20, 40, 20);
-        add(lblImagen, gbc);
-        
-        
-        //Botones
-        
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        panelBotones.setBackground(new Color(240, 240, 240));
-        panelBotones.add(btnPrecargarEquipos);
-        panelBotones.add(btnSalir);
-        
-        gbc.gridy = 2;
-        gbc.insets = new Insets(20, 20, 20, 20);
-        add(panelBotones, gbc);
-    }
-    
-    private void aplicarEstilos() {
-        // Efecto 
-        btnPrecargarEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPrecargarEquipos.setBackground(new Color(50, 50, 50));
-            }
-            
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPrecargarEquipos.setBackground(Color.BLACK);
-            }
-        });
-        
-        
-        //Efectos de los botones
-        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSalir.setBackground(new Color(150, 0, 0));
-            }
-            
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSalir.setBackground(new Color(200, 0, 0));
-            }
-        });
+        add(mainPanel);
     }
     
     /**
-     * Carga una imagen y la redimensiona
-     * @param ruta Ruta de la imagen
-     * @param ancho Ancho deseado
-     * @param alto Alto deseado
-     * @return ImageIcon redimensionado
+     * Cambia a la pantalla especificada
      */
-    private ImageIcon cargarImagen(String ruta, int ancho, int alto) {
-    try {
-        // Carga la imagen
-        java.net.URL imagenURL = getClass().getClassLoader().getResource(ruta);
-        
-        if (imagenURL == null) {
-            System.err.println("No se encontró: " + ruta);
-            return null;
-        }
-        
-        ImageIcon icon = new ImageIcon(imagenURL);
-        Image imagen = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-        return new ImageIcon(imagen);
-    } catch (Exception e) {
-        System.err.println("Error al cargar la imagen: " + e.getMessage());
-        e.printStackTrace();
-        return null;
-    }
-}
-    
-    
-    //Getters
-    
-    public JButton getBtnPrecargarEquipos() {
-        return btnPrecargarEquipos;
+    public void mostrarPanel(String nombrePanel) {
+        cardLayout.show(mainPanel, nombrePanel);
     }
     
-    public JButton getBtnSalir() {
-        return btnSalir;
+    // Getters de los paneles
+    public PanelInicio getPanelInicio() {
+        return panelInicio;
     }
     
-    public JLabel getLblImagen() {
-        return lblImagen;
+    public PanelTiempo getPanelTiempo() {
+        return panelTiempo;
     }
     
-    public void setImagen(ImageIcon icon) {
-        lblImagen.setIcon(icon);
+    public PanelJuego getPanelJuego() {
+        return panelJuego;
+    }
+    
+    public PanelResultados getPanelResultados() {
+        return panelResultados;
     }
 }

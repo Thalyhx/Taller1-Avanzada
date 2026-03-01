@@ -26,7 +26,8 @@ public class Equipo {
         this.nombreEquipo = nombreEquipo;
     }
     
-
+    // Getters y Setters
+    
     public int getCodigoEquipo() {
         return codigoEquipo;
     }
@@ -66,9 +67,17 @@ public class Equipo {
     public void setIntentosEquipo(int intentosEquipo) {
         this.intentosEquipo = intentosEquipo;
     }
+    
+    public String getNombreProyecto() {
+        return proyectoCurricularEquipo;
+    }
 
     @Override
     public String toString() {
         return "Equipo{" + "codigoEquipo=" + codigoEquipo + ", nombreEquipo=" + nombreEquipo + ", jugadoresEquipo=" + jugadoresEquipo + ", puntajeEquipo=" + puntajeEquipo + ", intentosEquipo=" + intentosEquipo + '}';
+    }
+
+    public Object getJugadores() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
