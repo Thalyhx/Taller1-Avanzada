@@ -54,7 +54,7 @@ public class ControlVentana {
     private final Random rnd = new Random();
     private int[] intentosExitososPorEquipo;
 
-    // NUEVO: guardar ganador actual para serializar al salir
+    //guardar ganador actual para serializar al salir
     private Equipo ganadorActual;
 
     public ControlVentana(VentanaPrincipal ventana, ControlPrincipal cPrincipal) {
@@ -417,12 +417,7 @@ public class ControlVentana {
         ventana.mostrarPanel("resultados");
     }
 
-    /**
-     * Guarda en archivo aleatorio y termina la ejecución.
-     *
-     * Nota: En tu captura el error es porque NO existe la clase "ArchivoResultadosAleatorio".
-     * Debes crearla (yo la dejé en control) con ese nombre exacto.
-     */
+   
     private void guardarResultadosYSalir() {
         try {
             if (ganadorActual == null) {
@@ -443,7 +438,7 @@ public class ControlVentana {
 
             int puntaje = ganadorActual.getPuntajeEquipo();
 
-            // OJO: esta clase debe existir en edu.udistrital.taller1.control
+
             ControlArchivoAleatorio archivo = new ControlArchivoAleatorio();
             int clave = archivo.siguienteClave();
 

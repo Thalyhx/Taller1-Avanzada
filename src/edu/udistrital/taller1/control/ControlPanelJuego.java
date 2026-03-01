@@ -67,13 +67,11 @@ public class ControlPanelJuego {
     private void iniciarTurnoActual() {
         if (equipoActual < equipos.size()) {
             Equipo equipo = equipos.get(this.equipoActual);
-            // CORRECCION: Comentado - Equipo no tiene metodo getJugadores()
-            // if (jugadorActual < equipoActual.getJugadores().size()) {
+
             if (jugadorActual < 3) { // Asumiendo 3 jugadores por equipo
                 tiempoRestante = tiempoPorJugador;
                 
                 // Actualizar vista
-                // CORRECCION: Metodo actualizarJuego solo recibe 3 parametros, no 4
                 panelJuego.actualizarJuego(
                     equipoActual,
                     jugadorActual,
@@ -107,27 +105,16 @@ public class ControlPanelJuego {
     }
     
     /**
-     * CORRECCION: Eliminada variable 'embocada' sin definir
-     * TODO: Implementar generacion aleatoria de embocadas
      * Genera una embocada aleatoria y suma puntos
      */
     public void registrarIntento() {
     if (!juegoEnCurso) return;
     
-    // CORRECCION: Renombrada a 'equipo' para evitar conflicto con 'this.equipoActual'
+
     Equipo equipo = equipos.get(this.equipoActual);
     
-    // CORRECCION: Comentado - Equipo no tiene metodo getJugadores()
-    // var jugador = equipo.getJugadores().get(jugadorActual);
-    
-    // CORRECCION: Comentada logica incompleta
-    // TipoEmbocada embocada = TipoEmbocada.alAzar();
-    // jugador.agregarPuntos(embocada.getPuntos());
-    // jugador.incrementarIntentos();
-    // panelJuego.mostrarEmbocada(embocada);
-    
-    System.out.println("Intento registrado");
-    // CORRECCION: Usa 'this.equipoActual' y 'this.jugadorActual' para claridad
+
+
     panelJuego.actualizarJuego(this.equipoActual, this.jugadorActual, this.tiempoRestante);
 }
     
@@ -152,7 +139,6 @@ public class ControlPanelJuego {
     }
     
     /**
-     * CORRECCION: Agregado metodo finalizarPartida()
      * Finaliza la partida
      */
     private void finalizarPartida() {
@@ -163,7 +149,6 @@ public class ControlPanelJuego {
         System.out.println("Partida finalizada");
     }
     
-    // CORRECCION: Agregados getters para acceder a variables de turno
     public int getEquipoActual() {
         return equipoActual;
     }
