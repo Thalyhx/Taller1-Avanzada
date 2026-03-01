@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package edu.udistrital.taller1.control;
 
 import edu.udistrital.taller1.modelo.Equipo;
@@ -39,24 +43,18 @@ public class PrecargaService {
             List<Jugador> jugadores = new ArrayList<>();
             for (int j = 1; j <= cantidadJugadoresPorEquipo; j++) {
                 String nombreJugador = required(jugadorProps, "equipo." + e + ".jugador." + j + ".nombre");
-                String codigoStr = required(jugadorProps, "equipo." + e + ".jugador." + j + ".codigo").trim();
+                String codigoStr = required(jugadorProps, "equipo." + e + ".jugador." + j + ".codigo");
 
-                long codigoLong;
+                long codigo;
                 try {
-                    codigoLong = Long.parseLong(codigoStr);
+                    // CAMBIO: ahora se parsea como long (Jugadores usan long en el modelo)
+                    codigo = Long.parseLong(codigoStr.trim());
                 } catch (NumberFormatException ex) {
-                    throw new IllegalStateException("Código no numérico: " + codigoStr + " (equipo " + e + ", jugador " + j + ")");
-                }
-
-                if (codigoLong > Integer.MAX_VALUE || codigoLong < Integer.MIN_VALUE) {
                     throw new IllegalStateException(
-                        "Código fuera de rango para int (modelo Jugador usa int): " + codigoStr +
-                        " (equipo " + e + ", jugador " + j + "). " +
-                        "Use un código <= " + Integer.MAX_VALUE
+                            "Código inválido: " + codigoStr + " (equipo " + e + ", jugador " + j + ")"
                     );
                 }
 
-                int codigo = (int) codigoLong;
                 jugadores.add(new Jugador(codigo, nombreJugador));
             }
 
@@ -79,6 +77,7 @@ public class PrecargaService {
     private static int parseIntRequired(Properties p, String key) {
         String v = required(p, key);
         try {
+            // Estos siguen siendo int porque son cantidades (no códigos)
             return Integer.parseInt(v.trim());
         } catch (NumberFormatException ex) {
             throw new IllegalStateException("Entero inválido en " + key + ": " + v);
