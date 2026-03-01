@@ -9,7 +9,7 @@ package edu.udistrital.taller1.modelo;
  * @author sebas
  */
 public class Jugador {
-    private int codigoJugador;
+    private long codigoJugador;
     private String nombreJugador;
     private int puntosJugador;
     private int intentosJugador;
@@ -17,16 +17,16 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(int codigoJugador, String nombreJugador) {
+    public Jugador(long codigoJugador, String nombreJugador) {
         this.codigoJugador = codigoJugador;
         this.nombreJugador = nombreJugador;
     }
     
-    public int getCodigoJugador() {
+    public long getCodigoJugador() {
         return codigoJugador;
     }
 
-    public void setCodigoJugador(int codigoJugador) {
+    public void setCodigoJugador(long codigoJugador) {
         this.codigoJugador = codigoJugador;
     }
 

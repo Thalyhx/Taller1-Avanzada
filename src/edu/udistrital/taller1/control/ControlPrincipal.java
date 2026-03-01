@@ -4,18 +4,69 @@
  */
 package edu.udistrital.taller1.control;
 
+import edu.udistrital.taller1.vista.VentanaPrincipal;
+import edu.udistrital.taller1.modelo.Equipo;
+import java.util.List;
+
 /**
- *
- * @author sebas
+ * Controlador principal que controla el aplicativo
+ * @author sebas, Nath
  */
 public class ControlPrincipal {
+    
+    private VentanaPrincipal ventana;
     private ControlVentana cVentana;
     private ControlEquipo cEquipo;
     private ControlJugador cJugador;
     private ControlJuego cJuego;
+    private ControlPanelJuego cPanelJuego;
+    private List<Equipo> equiposCargados;
 
-    public ControlPrincipal() {
-        cEquipo = new ControlEquipo(this);
-        cJuego = new ControlJuego(this);
-    }  
+    // CORRECCION: Constructor simplificado - solo recibe VentanaPrincipal
+    public ControlPrincipal(VentanaPrincipal ventanaPrincipal) {
+        this.ventana = ventanaPrincipal;
+        
+        // Inicializar controladores
+        this.cEquipo = new ControlEquipo(this);
+        this.cJugador = new ControlJugador(this);
+        this.cJuego = new ControlJuego(this);
+        this.cPanelJuego = new ControlPanelJuego(this);
+        
+        // CORRECCION: Crear ControlVentana al final, después de inicializar otros controladores
+        this.cVentana = new ControlVentana(ventanaPrincipal, this);
+    }
+    
+    // ============ GETTERS ============
+    
+    public ControlVentana getControlVentana() {
+        return cVentana;
+    }
+    
+    public ControlEquipo getControlEquipo() {
+        return cEquipo;
+    }
+    
+    public ControlJugador getControlJugador() {
+        return cJugador;
+    }
+    
+    public ControlJuego getControlJuego() {
+        return cJuego;
+    }
+    
+    public ControlPanelJuego getControlPanelJuego() {
+        return cPanelJuego;
+    }
+    
+    public VentanaPrincipal getVentana() {
+        return ventana;
+    }
+    
+    public List<Equipo> getEquiposCargados() {
+        return equiposCargados;
+    }
+    
+    public void setEquiposCargados(List<Equipo> equipos) {
+        this.equiposCargados = equipos;
+    }
 }
