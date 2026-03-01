@@ -27,7 +27,7 @@ public class PanelInicio extends JPanel {
         
         
         //cargando imagen
-        ImageIcon icon = cargarImagen("images/emboque.png", 160, 160);
+        ImageIcon icon = cargarImagen("recursos/imagenes/balero.png", 160, 160);
     if (icon != null) {
         lblImagen.setText(""); // por si no se carga imagen
         setImagen(icon);
