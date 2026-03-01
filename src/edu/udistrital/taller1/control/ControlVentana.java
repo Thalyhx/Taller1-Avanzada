@@ -8,6 +8,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package edu.udistrital.taller1.control;
 
 import edu.udistrital.taller1.modelo.Equipo;
@@ -68,7 +72,7 @@ public class ControlVentana {
         ventana.getPanelJuego().getBtnRegresar()
                 .addActionListener(e -> ventana.mostrarPanel("tiempo"));
 
-        // INTENTO: avanza jugador/equipo
+        // INTENTO
         ventana.getPanelJuego().getBtnIntento()
                 .addActionListener(e -> registrarIntento());
 
@@ -269,9 +273,10 @@ public class ControlVentana {
     }
 
     // ===================== BOTÓN INTENTO =====================
-
+    // CAMBIO ÚNICO: quitar el avance de turno. Ahora el jugador puede hacer múltiples intentos mientras tenga tiempo.
     private void registrarIntento() {
         if (!juegoEnCurso) return;
+        if (tiempoRestanteJugador <= 0) return; // si se acabó el tiempo, no cuenta más intentos
 
         Equipo eq = equipos.get(equipoActual);
         Jugador jug = eq.getJugadoresEquipo().get(jugadorActual);
@@ -291,13 +296,13 @@ public class ControlVentana {
             nombreEmbocada = t.name();
 
             puntos = switch (t) {
-                case SIMPLE -> 10;
-                case DOBLE -> 20;
-                case VERTICAL -> 30;
-                case MARIQUITA -> 40;
-                case PUÑALADA -> 50;
-                case PURTIÑA -> 60;
-                case DOMINIO_REVES -> 70;
+                case SIMPLE -> 2;
+                case DOBLE -> 10;
+                case VERTICAL -> 3;
+                case MARIQUITA -> 4;
+                case PUÑALADA -> 5;
+                case PURTIÑA -> 6;
+                case DOMINIO_REVES -> 8;
             };
 
             jug.setPuntosJugador(jug.getPuntosJugador() + puntos);
@@ -309,8 +314,7 @@ public class ControlVentana {
         uiEquipos.get(equipoActual).actualizarPuntajeEquipo(eq.getPuntajeEquipo());
         panelJuego.mostrarEmbocada(nombreEmbocada, puntos);
 
-        // avanzar a siguiente jugador/equipo
-        avanzarTurno();
+        // IMPORTANTE: ya NO se llama avanzarTurno() aquí.
     }
 
     private void avanzarTurno() {
